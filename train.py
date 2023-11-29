@@ -108,12 +108,3 @@ if __name__ == "__main__":
 		os.mkdir(config.sample_output_folder)
 
 	train(config)
-
-
-
-
-
-
-
-
-	

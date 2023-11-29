@@ -38,4 +38,4 @@ Steps:
 * source ./venv/bin/activate
 * pip3 install -r requirements.txt
 * python dehaze.py
-
+* Used ssim loss function in this branch

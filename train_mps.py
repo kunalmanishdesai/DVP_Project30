@@ -7,6 +7,8 @@ import argparse
 import dataloader
 import net
 from torchvision import transforms
+from pytorch_ssim import SSIM
+
 
 
 def weights_init(m):
@@ -30,6 +32,9 @@ def train(config):
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=config.train_batch_size, shuffle=True, num_workers=config.num_workers, pin_memory=True)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=config.val_batch_size, shuffle=True, num_workers=config.num_workers, pin_memory=True)
 
+    ssim_loss = SSIM(window_size=11)
+    ssim_loss = ssim_loss.to(device)
+
     criterion = nn.MSELoss().to(device)
     optimizer = torch.optim.Adam(dehaze_net.parameters(), lr=config.lr, weight_decay=config.weight_decay)
     
@@ -42,7 +47,7 @@ def train(config):
 
             clean_image = dehaze_net(img_haze)
 
-            loss = criterion(clean_image, img_orig)
+            loss = 1-criterion(clean_image, img_orig)
 
             optimizer.zero_grad()
             loss.backward()

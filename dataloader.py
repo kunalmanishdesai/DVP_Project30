@@ -88,8 +88,8 @@ class dehazing_loader(data.Dataset):
 		data_orig = Image.open(data_orig_path)
 		data_hazy = Image.open(data_hazy_path)
 
-		data_orig = data_orig.resize((480,640), Image.ANTIALIAS)
-		data_hazy = data_hazy.resize((480,640), Image.ANTIALIAS)
+		data_orig = data_orig.resize((480,640), Image.LANCZOS)
+		data_hazy = data_hazy.resize((480,640), Image.LANCZOS)
 
 		data_orig = (np.asarray(data_orig)/255.0) 
 		data_hazy = (np.asarray(data_hazy)/255.0) 

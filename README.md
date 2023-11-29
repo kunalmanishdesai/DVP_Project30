@@ -29,3 +29,13 @@ Some qualitative results are shown below:
 ![Alt text](results/test9.jpg?raw=true "Title")  
 ![Alt text](results/test13.jpg?raw=true "Title")  
 ![Alt text](results/test15.jpg?raw=true "Title")
+
+
+Steps:
+
+* Check if python version is less than 3.11, torch doesnt work with > python3.10
+* python3 -m venv vevn
+* source ./venv/bin/activate
+* pip3 install -r requirements.txt
+* python dehaze.py
+

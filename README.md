@@ -34,7 +34,7 @@ Some qualitative results are shown below:
 Steps:
 
 * Check if python version is less than 3.11, torch doesnt work with < python3.10
-* python3 -m venv vevn
+* python3 -m venv venv
 * source ./venv/bin/activate
 * pip3 install -r requirements.txt
 * python dehaze.py

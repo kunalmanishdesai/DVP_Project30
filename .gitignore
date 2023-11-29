@@ -1,2 +1,6 @@
 __pycache__/
 data/
+venv/
+.DS_Store
+results/
+samples/

@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 import torchvision
@@ -6,10 +7,12 @@ import sys
 import argparse
 import dataloader
 import net
-from torchvision import transforms
 from pytorch_ssim import SSIM
+from piqa import SSIM
 
-
+class SSIMLoss(SSIM):
+    def forward(self, x, y):
+        return 1. - super().forward(x, y)
 
 def weights_init(m):
     classname = m.__class__.__name__
@@ -31,11 +34,8 @@ def train(config):
     val_dataset = dataloader.dehazing_loader(config.orig_images_path, config.hazy_images_path, mode="val")       
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=config.train_batch_size, shuffle=True, num_workers=config.num_workers, pin_memory=True)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=config.val_batch_size, shuffle=True, num_workers=config.num_workers, pin_memory=True)
+    criterion = SSIMLoss().to(device)
 
-    ssim_loss = SSIM(window_size=11)
-    ssim_loss = ssim_loss.to(device)
-
-    criterion = nn.MSELoss().to(device)
     optimizer = torch.optim.Adam(dehaze_net.parameters(), lr=config.lr, weight_decay=config.weight_decay)
     
     dehaze_net.train()
@@ -47,7 +47,7 @@ def train(config):
 
             clean_image = dehaze_net(img_haze)
 
-            loss = 1-criterion(clean_image, img_orig)
+            loss =criterion(clean_image,img_orig)
 
             optimizer.zero_grad()
             loss.backward()

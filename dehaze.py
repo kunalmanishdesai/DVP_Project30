@@ -178,4 +178,4 @@ if __name__ == '__main__':
 	# dehaze_video('test_video/hazy_video.mp4', 'results/dehazed_video.mp4')
 	# real_time_dehaze_video('test_video/hazy_video.mp4')
 
-	real_time_dehaze_and_save_video('test_video/test2.mp4', 'results/test2.mp4')
+	real_time_dehaze_and_save_video('test_video/test4.mp4', 'results/test4.mp4')
